@@ -123,7 +123,7 @@
 /* Font definitions */
 @font-face {
 	font-family: 'Nunito';
-	src: url('/fonts/Nunito-VariableFont_wght.ttf') format('truetype-variations');
+	src: url('./fonts/Nunito-VariableFont_wght.ttf') format('truetype-variations');
 	font-weight: 200 1000;
 	font-style: normal;
 	font-display: swap;
@@ -131,7 +131,7 @@
 
 @font-face {
 	font-family: 'Nunito';
-	src: url('/fonts/Nunito-Italic-VariableFont_wght.ttf') format('truetype-variations');
+	src: url('./fonts/Nunito-Italic-VariableFont_wght.ttf') format('truetype-variations');
 	font-weight: 200 1000;
 	font-style: italic;
 	font-display: swap;
@@ -139,7 +139,7 @@
 
 @font-face {
 	font-family: 'Work Sans';
-	src: url('/fonts/WorkSans-VariableFont_wght.ttf') format('truetype-variations');
+	src: url('./fonts/WorkSans-VariableFont_wght.ttf') format('truetype-variations');
 	font-weight: 100 900;
 	font-style: normal;
 	font-display: swap;
@@ -147,7 +147,7 @@
 
 @font-face {
 	font-family: 'Work Sans';
-	src: url('/fonts/WorkSans-Italic-VariableFont_wght.ttf') format('truetype-variations');
+	src: url('./fonts/WorkSans-Italic-VariableFont_wght.ttf') format('truetype-variations');
 	font-weight: 100 900;
 	font-style: italic;
 	font-display: swap;
@@ -155,7 +155,7 @@
 
 @font-face {
 	font-family: 'Inter';
-	src: url('/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
+	src: url('./fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
 	font-weight: 100 900;
 	font-style: normal;
 	font-display: swap;
@@ -163,7 +163,7 @@
 
 @font-face {
 	font-family: 'Inter';
-	src: url('/fonts/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
+	src: url('./fonts/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
 	font-weight: 100 900;
 	font-style: italic;
 	font-display: swap;

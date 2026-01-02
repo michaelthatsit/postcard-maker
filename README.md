@@ -1,13 +1,13 @@
-# Postcard Builder
+# Postcard maker
 
-A web app for creating beautiful postcards with your images. Upload 1-4 images and arrange them on a standard US Letter page in a 2x2 grid.
+A little postcard maker I vibe coded for my wife.
 
 ## Features
 
 - Upload 1-4 images
 - 2x2 grid layout on US Letter size (8.5" × 11" @ 300 DPI)
 - Individual image controls:
-  - Zoom (50% - 200%)
+  - Zoom (50% - 150%)
   - Horizontal/Vertical positioning (crop/pan)
   - Rotation (0° - 360°)
 - Global padding controls (width and color)

@@ -42,7 +42,7 @@ export default function ControlsOverlay({ transform, gridIndex, imageId, onUpdat
           <input
               type="range"
               min="-50"
-              max="100"
+              max="50"
               value={transform.zoom}
               onChange={(e) => onUpdate(imageId, { zoom: parseInt(e.target.value) })}
             />

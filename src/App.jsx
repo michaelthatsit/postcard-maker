@@ -111,7 +111,7 @@ export default function App() {
       if (!gridItem.imageId) return
 
       const moveAmount = e.shiftKey ? 10 : 1
-      const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 }
+      const transform = imageTransforms[gridItem.imageId] || { zoom: 0, offsetX: 0, offsetY: 0, rotation: 0 }
 
       if (e.key === 'ArrowUp') {
         e.preventDefault()
@@ -150,7 +150,7 @@ export default function App() {
         // Initialize transform for new image
         setImageTransforms(prev => ({
           ...prev,
-          [newImage.id]: { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
+          [newImage.id]: { zoom: 0, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
         }))
 
         // Auto-assign to first empty grid position
@@ -196,7 +196,7 @@ export default function App() {
     const cellHeight = cellRect.height
 
     // Use provided transform or get from state
-    const currentTransform = transform || imageTransforms[imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
+    const currentTransform = transform || imageTransforms[imageId] || { zoom: 0, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
     const zoom = (100 + currentTransform.zoom) / 100
     const rotation = currentTransform.rotation % 360
 
@@ -241,7 +241,7 @@ export default function App() {
 
   const updateImageTransform = (imageId, updates) => {
     setImageTransforms(prev => {
-      const current = prev[imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 , straighten: 0}
+      const current = prev[imageId] || { zoom: 0, offsetX: 0, offsetY: 0, rotation: 0 , straighten: 0}
       const newTransform = { ...current, ...updates }
 
       // Find a cell that contains this image to calculate bounds
@@ -267,7 +267,7 @@ export default function App() {
     const gridItem = gridItems[selectedGridIndex]
     if (!gridItem.imageId) return
 
-    const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
+    const transform = imageTransforms[gridItem.imageId] || { zoom: 0, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
     updateImageTransform(gridItem.imageId, {
       rotation: (transform.rotation + degrees + 360) % 360
     })
@@ -283,7 +283,7 @@ export default function App() {
     // Prevent default browser drag behavior (ghost image)
     e.preventDefault()
 
-    const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
+    const transform = imageTransforms[gridItem.imageId] || { zoom: 0, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
     dragStateRef.current = {
       isDragging: true,
       imageId: gridItem.imageId,
@@ -311,7 +311,7 @@ export default function App() {
       let newOffsetX = dragStateRef.current.initialOffsetX + deltaX * 0.5
       let newOffsetY = dragStateRef.current.initialOffsetY + deltaY * 0.5
 
-      const transform = imageTransforms[dragStateRef.current.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
+      const transform = imageTransforms[dragStateRef.current.imageId] || { zoom: 0, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
 
       // Find first cell with this image to calculate bounds
       const cellIndex = gridItems.findIndex(item => item.imageId === dragStateRef.current.imageId)
@@ -395,7 +395,7 @@ export default function App() {
     gridItems.forEach((gridItem, index) => {
       if (gridItem.imageId !== null) {
         const image = images.find(img => img.id === gridItem.imageId)
-        const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
+        const transform = imageTransforms[gridItem.imageId] || { zoom: 0, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
         if (image) {
           const pos = positions[index]
           drawImageToCanvas(ctx, image, transform, pos.x, pos.y, cellWidth, cellHeight)
@@ -417,7 +417,7 @@ export default function App() {
         {/* Sidebar */}
         <aside className="sidebar">
           <section className="section">
-            <h2>Images</h2>
+            <h2>Photos</h2>
             <input
               ref={fileInputRef}
               type="file"
@@ -490,7 +490,7 @@ export default function App() {
             }}
           >
             {gridItems.map((gridItem, index) => {
-              const transform = gridItem.imageId ? (imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }) : null
+              const transform = gridItem.imageId ? (imageTransforms[gridItem.imageId] || { zoom: 0, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }) : null
               return (
                 <GridCell
                   key={index}
@@ -514,7 +514,7 @@ export default function App() {
         {/* Controls Overlay for Selected Grid */}
       {selectedGridIndex !== null && gridItems[selectedGridIndex].imageId !== null && (() => {
         const gridItem = gridItems[selectedGridIndex]
-        const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
+        const transform = imageTransforms[gridItem.imageId] || { zoom: 0, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
         return (
           <ControlsOverlay
             transform={transform}
