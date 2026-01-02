@@ -71,7 +71,7 @@ export function drawImageToCanvas(ctx, image, gridItem, x, y, width, height) {
   // Apply transforms in the same order as the CSS preview:
   // translate (offset) -> rotate -> scale.
   ctx.translate(offsetXPixels, offsetYPixels)
-  ctx.rotate((gridItem.rotation * Math.PI) / 180)
+  ctx.rotate(((gridItem.rotation + gridItem.straighten) * Math.PI) / 180)
   ctx.scale(zoom, zoom)
 
   // Draw the image centered using the unscaled (object-fit) dimensions.

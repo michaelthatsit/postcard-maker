@@ -150,7 +150,7 @@ export default function App() {
         // Initialize transform for new image
         setImageTransforms(prev => ({
           ...prev,
-          [newImage.id]: { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 }
+          [newImage.id]: { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
         }))
 
         // Auto-assign to first empty grid position
@@ -196,7 +196,7 @@ export default function App() {
     const cellHeight = cellRect.height
 
     // Use provided transform or get from state
-    const currentTransform = transform || imageTransforms[imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 }
+    const currentTransform = transform || imageTransforms[imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
     const zoom = currentTransform.zoom / 100
     const rotation = currentTransform.rotation % 360
 
@@ -241,7 +241,7 @@ export default function App() {
 
   const updateImageTransform = (imageId, updates) => {
     setImageTransforms(prev => {
-      const current = prev[imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 }
+      const current = prev[imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 , straighten: 0}
       const newTransform = { ...current, ...updates }
 
       // Find a cell that contains this image to calculate bounds
@@ -267,7 +267,7 @@ export default function App() {
     const gridItem = gridItems[selectedGridIndex]
     if (!gridItem.imageId) return
 
-    const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 }
+    const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
     updateImageTransform(gridItem.imageId, {
       rotation: (transform.rotation + degrees + 360) % 360
     })
@@ -283,7 +283,7 @@ export default function App() {
     // Prevent default browser drag behavior (ghost image)
     e.preventDefault()
 
-    const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 }
+    const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
     dragStateRef.current = {
       isDragging: true,
       imageId: gridItem.imageId,
@@ -311,7 +311,7 @@ export default function App() {
       let newOffsetX = dragStateRef.current.initialOffsetX + deltaX * 0.5
       let newOffsetY = dragStateRef.current.initialOffsetY + deltaY * 0.5
 
-      const transform = imageTransforms[dragStateRef.current.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 }
+      const transform = imageTransforms[dragStateRef.current.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
 
       // Find first cell with this image to calculate bounds
       const cellIndex = gridItems.findIndex(item => item.imageId === dragStateRef.current.imageId)
@@ -335,7 +335,7 @@ export default function App() {
           if (cellElement) {
             const imgElement = cellElement.querySelector('img')
             if (imgElement) {
-              imgElement.style.transform = `translate(-50%, -50%) translate(${dragStateRef.current.currentOffsetX * 0.1}%, ${dragStateRef.current.currentOffsetY * 0.1}%) rotate(${transform.rotation}deg) scale(${transform.zoom / 100})`
+              imgElement.style.transform = `translate(-50%, -50%) translate(${dragStateRef.current.currentOffsetX * 0.1}%, ${dragStateRef.current.currentOffsetY * 0.1}%) rotate(${transform.rotation + transform.straighten}deg) scale(${transform.zoom / 100})`
             }
           }
         }
@@ -395,7 +395,7 @@ export default function App() {
     gridItems.forEach((gridItem, index) => {
       if (gridItem.imageId !== null) {
         const image = images.find(img => img.id === gridItem.imageId)
-        const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 }
+        const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
         if (image) {
           const pos = positions[index]
           drawImageToCanvas(ctx, image, transform, pos.x, pos.y, cellWidth, cellHeight)
@@ -490,7 +490,7 @@ export default function App() {
             }}
           >
             {gridItems.map((gridItem, index) => {
-              const transform = gridItem.imageId ? (imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 }) : null
+              const transform = gridItem.imageId ? (imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }) : null
               return (
                 <GridCell
                   key={index}
@@ -504,7 +504,6 @@ export default function App() {
                   onHover={() => setHoveredGridIndex(index)}
                   onLeave={() => setHoveredGridIndex(null)}
                   onAssignImage={assignImageToGrid}
-                  onClear={clearGridItem}
                   onMouseDown={handleGridMouseDown}
                   cellRef={cellRefs[index]}
                 />
@@ -512,23 +511,24 @@ export default function App() {
             })}
           </div>
         </main>
-      </div>
-
-      {/* Controls Overlay for Selected Grid */}
+        {/* Controls Overlay for Selected Grid */}
       {selectedGridIndex !== null && gridItems[selectedGridIndex].imageId !== null && (() => {
         const gridItem = gridItems[selectedGridIndex]
-        const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0 }
+        const transform = imageTransforms[gridItem.imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
         return (
           <ControlsOverlay
             transform={transform}
+            gridIndex={selectedGridIndex}
             imageId={gridItem.imageId}
             onUpdate={updateImageTransform}
             onRotate90={rotate90}
+            onClear={clearGridItem}
             onClose={() => setSelectedGridIndex(null)}
             cellRef={cellRefs[selectedGridIndex]}
           />
         )
       })()}
+      </div>
     </div>
   )
 }

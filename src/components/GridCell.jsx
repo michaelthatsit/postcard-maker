@@ -95,20 +95,9 @@ export default function GridCell({
             style={{
               width: imageDimensions.width,
               height: imageDimensions.height,
-              transform: transform ? `translate(-50%, -50%) translate(${transform.offsetX * 0.1}%, ${transform.offsetY * 0.1}%) rotate(${transform.rotation}deg) scale(${transform.zoom / 100})` : 'translate(-50%, -50%)'
+              transform: transform ? `translate(-50%, -50%) translate(${transform.offsetX * 0.1}%, ${transform.offsetY * 0.1}%) rotate(${transform.rotation + transform.straighten}deg) scale(${transform.zoom / 100})` : 'translate(-50%, -50%)'
             }}
           />
-          {(isSelected || isHovered) && (
-            <button
-              className="grid-cell-delete"
-              onClick={(e) => {
-                e.stopPropagation()
-                onClear(index)
-              }}
-            >
-              <X size={16} />
-            </button>
-          )}
         </>
       ) : null}
 
