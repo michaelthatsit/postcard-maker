@@ -450,6 +450,33 @@ button {
 }
 
 @media print {
+    @page {
+        size: 8.5in 11in;
+        margin: 0;
+    }
+
+    html,
+    body,
+    .app {
+        width: 8.5in;
+        height: 11in;
+        margin: 0;
+        padding: 0;
+        background: white;
+    }
+
+    .main-layout {
+        display: block;
+        padding: 0;
+        margin: 0;
+        max-width: none;
+    }
+
+    .canvas-area {
+        align-items: stretch;
+        justify-content: stretch;
+    }
+
     .sidebar,
     .controls-overlay,
     .grid-cell-label,
@@ -459,11 +486,12 @@ button {
     }
 
     .grid-container {
-        max-width: 100%;
+        max-width: 8.5in;
         width: 8.5in;
         height: 11in;
         box-shadow: none;
         page-break-inside: avoid;
+        margin: 0;
     }
 
     .grid-cell:hover,
