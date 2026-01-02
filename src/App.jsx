@@ -445,7 +445,7 @@ export default function App() {
           </section>
 
           <section className="section">
-            <h2>Global Padding</h2>
+            <h2>Border Width</h2>
             <div className="control-group">
               <label>Width: {globalPadding.width}px</label>
               <input
@@ -456,17 +456,6 @@ export default function App() {
                 onChange={(e) => setGlobalPadding(prev => ({
                   ...prev,
                   width: parseInt(e.target.value)
-                }))}
-              />
-            </div>
-            <div className="control-group">
-              <label>Color</label>
-              <input
-                type="color"
-                value={globalPadding.color}
-                onChange={(e) => setGlobalPadding(prev => ({
-                  ...prev,
-                  color: e.target.value
                 }))}
               />
             </div>

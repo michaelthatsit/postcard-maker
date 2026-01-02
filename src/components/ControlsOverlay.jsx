@@ -23,6 +23,9 @@ export default function ControlsOverlay({ transform, gridIndex, imageId, onUpdat
           </button>
         </div>
 
+        <section className="section">
+          <h2>Adjust</h2>
+
         <div className="control-group">
           <label>Straighten</label>
           <div className="rotation-controls">        
@@ -49,6 +52,7 @@ export default function ControlsOverlay({ transform, gridIndex, imageId, onUpdat
             <label>{transform.zoom}°</label>
           </div>
         </div>
+        </section>
       </div>
     </div>
   )

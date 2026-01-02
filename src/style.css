@@ -620,23 +620,35 @@ header p {
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	gap: 24px;
 	height: fit-content;
 }
 
 .section {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	gap: 12px;
 }
 
 .section h2 {
-	font-size: 1.1rem;
+	font-size: 1.5rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: .05em;
+	border-bottom: 2px solid var(--border-color);
+	padding-bottom: .5rem;
+	margin-top: 2.5rem;
+	margin-bottom: 1.5rem;
 	color: var(--text-primary);
-	font-weight: 700;
+	text-align: center;
+	width: 100%;
 }
 
 .control-group {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
@@ -725,9 +737,13 @@ header p {
 	font-family: 'Inter', sans-serif;
 }
 
+.btn-primary,
+.bg-secondary {
+	width: 100%;
+}
+
 .btn-primary {
 	color: var(--text-primary);
-
 }
 
 .btn-secondary {
@@ -1048,8 +1064,10 @@ header p {
 
 	.grid-cell:hover,
 	.grid-cell.hovered,
-	.grid-cell.selected {
+	.grid-cell.selected,
+	.grid-cell::after {
 		outline: none;
 		box-shadow: none;
+		border: none;
 	}
 }
