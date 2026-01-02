@@ -36,6 +36,19 @@ export default function ControlsOverlay({ transform, gridIndex, imageId, onUpdat
             <label>{transform.straighten}°</label>
           </div>
         </div>
+        <div className="control-group">
+          <label>Scale</label>
+          <div className="rotation-controls">        
+          <input
+              type="range"
+              min="-50"
+              max="100"
+              value={transform.zoom}
+              onChange={(e) => onUpdate(imageId, { zoom: parseInt(e.target.value) })}
+            />
+            <label>{transform.zoom}°</label>
+          </div>
+        </div>
       </div>
     </div>
   )

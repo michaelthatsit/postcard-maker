@@ -41,7 +41,7 @@ export function drawImageToCanvas(ctx, image, gridItem, x, y, width, height) {
   const centerY = y + height / 2
 
   // Calculate zoom first (needed for dimension calculations)
-  const zoom = gridItem.zoom / 100
+  const zoom = (100 + gridItem.zoom) / 100
 
   // Calculate image aspect ratio (NOT rotated yet)
   const imgAspect = image.img.width / image.img.height

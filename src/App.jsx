@@ -197,7 +197,7 @@ export default function App() {
 
     // Use provided transform or get from state
     const currentTransform = transform || imageTransforms[imageId] || { zoom: 100, offsetX: 0, offsetY: 0, rotation: 0, straighten: 0 }
-    const zoom = currentTransform.zoom / 100
+    const zoom = (100 + currentTransform.zoom) / 100
     const rotation = currentTransform.rotation % 360
 
     // Determine if rotation swaps dimensions (90° or 270°)
@@ -335,7 +335,7 @@ export default function App() {
           if (cellElement) {
             const imgElement = cellElement.querySelector('img')
             if (imgElement) {
-              imgElement.style.transform = `translate(-50%, -50%) translate(${dragStateRef.current.currentOffsetX * 0.1}%, ${dragStateRef.current.currentOffsetY * 0.1}%) rotate(${transform.rotation + transform.straighten}deg) scale(${transform.zoom / 100})`
+              imgElement.style.transform = `translate(-50%, -50%) translate(${dragStateRef.current.currentOffsetX * 0.1}%, ${dragStateRef.current.currentOffsetY * 0.1}%) rotate(${transform.rotation + transform.straighten}deg) scale(${(100 + transform.zoom) / 100})`
             }
           }
         }
