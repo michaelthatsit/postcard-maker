@@ -1,4 +1,6 @@
-export default function ImagePicker({ images, onSelect, onClose }) {
+import { Plus } from 'lucide-react'
+
+export default function ImagePicker({ images, onSelect, onClose, onAddFiles }) {
   return (
     <div className="image-picker-overlay" onClick={onClose}>
       <div className="image-picker" onClick={(e) => e.stopPropagation()}>
@@ -14,8 +16,15 @@ export default function ImagePicker({ images, onSelect, onClose }) {
               <span>{img.name}</span>
             </div>
           ))}
+          <div
+            className="image-picker-item image-picker-add"
+            onClick={onAddFiles}
+          >
+            <Plus size={48} />
+            <span>Add Files</span>
+          </div>
         </div>
-        <button className="btn-secondary" onClick={onClose}>Cancel</button>
+        <button className="btn-primary" onClick={onClose}>Cancel</button>
       </div>
     </div>
   )

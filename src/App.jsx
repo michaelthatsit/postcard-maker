@@ -494,6 +494,7 @@ export default function App() {
                   onLeave={() => setHoveredGridIndex(null)}
                   onAssignImage={assignImageToGrid}
                   onMouseDown={handleGridMouseDown}
+                  onTriggerUpload={() => fileInputRef.current?.click()}
                   cellRef={cellRefs[index]}
                 />
               )

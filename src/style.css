@@ -633,7 +633,8 @@ header p {
 	gap: 12px;
 }
 
-.section h2 {
+.section h2,
+.image-picker h3 {
 	font-size: 1.5rem;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -919,8 +920,7 @@ header p {
 }
 
 .image-picker {
-	background: white;
-	border-radius: 12px;
+	background: var(--bg);
 	padding: 20px;
 	width: 90%;
 	max-width: 900px;
@@ -944,6 +944,45 @@ header p {
 	overflow-y: auto;
 }
 
+.image-picker-item {
+	cursor: pointer;
+	transition: transform 0.1s, box-shadow 0.2s;
+	background: var(--surface);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.image-picker-item:hover, .image-picker-add:hover {
+	border: 1px solid var(--primary);
+	color: var(--primary);
+}
+
+.image-picker-item img {
+	width: 100%;
+	height: 140px;
+	object-fit: cover;
+}
+
+.image-picker-item span {
+	padding: 8px;
+	font-size: 0.85rem;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.image-picker-add {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 188px;
+	background: var(--surface);
+	color: var(--text-muted);
+}
+
 .image-picker-grid button {
 	border: 1px solid color-mix(in srgb, var(--border-color), white 60%);
 	border-radius: 10px;
@@ -962,7 +1001,6 @@ header p {
 	width: 100%;
 	height: 140px;
 	object-fit: cover;
-	border-radius: 10px;
 }
 
 .controls-panel-floating {

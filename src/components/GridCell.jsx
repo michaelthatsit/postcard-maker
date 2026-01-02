@@ -15,6 +15,7 @@ export default function GridCell({
   onAssignImage,
   onClear,
   onMouseDown,
+  onTriggerUpload,
   cellRef
 }) {
   const [showImagePicker, setShowImagePicker] = useState(false)
@@ -40,7 +41,12 @@ export default function GridCell({
 
   const handleClick = () => {
     if (gridItem.imageId === null) {
-      setShowImagePicker(true)
+      // If no images available, trigger file upload
+      if (images.length === 0) {
+        onTriggerUpload()
+      } else {
+        setShowImagePicker(true)
+      }
     } else {
       onSelect()
     }
@@ -109,6 +115,7 @@ export default function GridCell({
             setShowImagePicker(false)
           }}
           onClose={() => setShowImagePicker(false)}
+          onAddFiles={onTriggerUpload}
         />
       )}
     </div>
