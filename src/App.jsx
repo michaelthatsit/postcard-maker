@@ -11,6 +11,7 @@ const CANVAS_WIDTH = 2550
 const CANVAS_HEIGHT = 3300
 
 export default function App() {
+  const defaultPadding = { width: 10, color: '#ffffff', cutMargin: 20 }
   const [images, setImages] = useState([])
   const [gridItems, setGridItems] = useState([
     { imageId: null },
@@ -20,7 +21,7 @@ export default function App() {
   ])
   const [imageTransforms, setImageTransforms] = useState({}) // { imageId: { zoom, offsetX, offsetY, rotation } }
   const [selectedGridIndex, setSelectedGridIndex] = useState(null)
-  const [globalPadding, setGlobalPadding] = useState({ width: 10, color: '#ffffff' })
+  const [globalPadding, setGlobalPadding] = useState(defaultPadding)
   const [hoveredGridIndex, setHoveredGridIndex] = useState(null)
 
   const fileInputRef = useRef(null)
@@ -58,7 +59,10 @@ export default function App() {
       if (settings) {
         if (settings.gridItems) setGridItems(settings.gridItems)
         if (settings.imageTransforms) setImageTransforms(settings.imageTransforms)
-        if (settings.globalPadding) setGlobalPadding(settings.globalPadding)
+        if (settings.globalPadding) setGlobalPadding(prev => ({
+          ...defaultPadding,
+          ...settings.globalPadding
+        }))
       }
     }
     loadState()
@@ -375,14 +379,16 @@ export default function App() {
 
     // Calculate grid positions
     const padding = globalPadding.width
-    const cellWidth = (CANVAS_WIDTH - padding * 3) / 2
-    const cellHeight = (CANVAS_HEIGHT - padding * 3) / 2
+    const gap = padding * 2 // inner gap between images should be 2x the base padding
+    const outerPadding = padding
+    const cellWidth = (CANVAS_WIDTH - (outerPadding * 2) - gap) / 2
+    const cellHeight = (CANVAS_HEIGHT - (outerPadding * 2) - gap) / 2
 
     const positions = [
-      { x: padding, y: padding },
-      { x: padding * 2 + cellWidth, y: padding },
-      { x: padding, y: padding * 2 + cellHeight },
-      { x: padding * 2 + cellWidth, y: padding * 2 + cellHeight }
+      { x: outerPadding, y: outerPadding },
+      { x: outerPadding + cellWidth + gap, y: outerPadding },
+      { x: outerPadding, y: outerPadding + cellHeight + gap },
+      { x: outerPadding + cellWidth + gap, y: outerPadding + cellHeight + gap }
     ]
 
     // Draw each grid item
@@ -478,7 +484,7 @@ export default function App() {
           <div
             className="grid-container"
             style={{
-              gap: `${globalPadding.width}px`,
+              gap: `${globalPadding.width * 2}px`,
               background: globalPadding.color,
               padding: `${globalPadding.width}px`
             }}
