@@ -71,6 +71,28 @@ export default function App() {
     }
   }, [images])
 
+  useEffect(() => {
+    const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Function to apply theme to the <html> element
+    const applyTheme = (isDark) => {
+      const theme = isDark ? 'dark' : 'light';
+      
+      // Update your custom data attribute
+      document.documentElement.setAttribute('data-theme', theme);
+    };
+
+    // 1. Initial detection on load
+    applyTheme(darkQuery.matches);
+
+    // 2. Listen for system theme changes (e.g., sunset/sunrise auto-switch)
+    const handler = (e) => applyTheme(e.matches);
+    darkQuery.addEventListener('change', handler);
+
+    // 3. Cleanup listener on unmount
+    return () => darkQuery.removeEventListener('change', handler);
+  }, []);
+
   // Save settings to IndexedDB
   useEffect(() => {
     saveSettings({ gridItems, imageTransforms, globalPadding })
@@ -384,16 +406,12 @@ export default function App() {
 
   return (
     <div className="app">
-      <header>
-        <h1>Postcard Builder</h1>
-        <p>Create beautiful postcards with your images</p>
-      </header>
 
       <div className="main-layout">
         {/* Sidebar */}
         <aside className="sidebar">
           <section className="section">
-            <h2>Upload Images</h2>
+            <h2>Images</h2>
             <input
               ref={fileInputRef}
               type="file"
@@ -402,13 +420,6 @@ export default function App() {
               onChange={handleFileUpload}
               style={{ display: 'none' }}
             />
-            <button
-              className="btn-primary"
-              onClick={() => fileInputRef.current?.click()}
-            >
-              <Upload size={18} />
-              Choose Files
-            </button>
 
             <div className="image-list">
               {images.map((img, index) => (
@@ -418,6 +429,13 @@ export default function App() {
                 </div>
               ))}
             </div>
+            <button
+              className="btn-primary"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload size={18} />
+              Add Files
+            </button>
           </section>
 
           <section className="section">
@@ -449,10 +467,7 @@ export default function App() {
           </section>
 
           <section className="section">
-            <button className="btn-primary" onClick={downloadImage}>
-              Download PNG
-            </button>
-            <button className="btn-secondary" onClick={() => window.print()}>
+            <button className="btn-primary" onClick={() => window.print()}>
               Print
             </button>
           </section>

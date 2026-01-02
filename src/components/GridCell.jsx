@@ -21,7 +21,6 @@ export default function GridCell({
   const [cellSize, setCellSize] = useState({ width: 0, height: 0 })
   const localCellRef = useRef(null)
   const image = images.find(img => img.id === gridItem.imageId)
-  const positionLabels = ['Top-Left', 'Top-Right', 'Bottom-Left', 'Bottom-Right']
 
   // Use provided ref or local ref
   const refToUse = cellRef || localCellRef
@@ -82,8 +81,6 @@ export default function GridCell({
       onMouseLeave={onLeave}
       onMouseDown={(e) => gridItem.imageId !== null && onMouseDown(e, index)}
     >
-      <div className="grid-cell-label">{positionLabels[index]}</div>
-
       {gridItem.imageId === null ? (
         <div className="grid-cell-empty">
           <Plus size={48} />
