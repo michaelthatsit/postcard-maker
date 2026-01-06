@@ -783,7 +783,18 @@ header p {
 }
 
 .btn-icon:hover {
-	background: color-mix(in srgb, var(--surface), white 85%);
+	color: var(--primary);
+	border-color: var(--primary);
+}
+
+.btn-icon.danger {
+	border-color: color-mix(in srgb, #ef4444, white 50%);
+	color: #ef4444;
+}
+
+.btn-icon.danger:hover {
+	background: color-mix(in srgb, #ef4444, white 90%);
+	border-color: #ef4444;
 }
 
 .canvas-area {

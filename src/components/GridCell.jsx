@@ -113,6 +113,7 @@ export default function GridCell({
           onSelect={(imageId) => {
             onAssignImage(index, imageId)
             setShowImagePicker(false)
+            onSelect()
           }}
           onClose={() => setShowImagePicker(false)}
           onAddFiles={onTriggerUpload}

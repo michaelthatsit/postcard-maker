@@ -15,7 +15,7 @@ export default function ControlsOverlay({ transform, gridIndex, imageId, onUpdat
           <button className="btn-icon" onClick={() => onRotate90(-90)}>
             <RotateCcwSquareIcon size={20} />
           </button>
-          <button className="btn-icon" onClick={() => onClear(gridIndex)}>
+          <button className="btn-icon danger" onClick={() => onClear(gridIndex)}>
             <TrashIcon size={20} />
           </button>
           <button className="btn-icon" onClick={onClose}>
